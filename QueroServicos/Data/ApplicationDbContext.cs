@@ -14,6 +14,7 @@ namespace QueroServicos.Data
         public DbSet<Country> Countries { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<Neighborhood> neighborhoods { get; set; }
         public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
