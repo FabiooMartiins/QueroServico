@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using QueroServico.Models;
 using QueroServicos.Models;
-using static Duende.IdentityServer.Models.IdentityResources;
+using System.Reflection.Emit;
 
 namespace QueroServicos.Data
 {
@@ -15,6 +14,7 @@ namespace QueroServicos.Data
         public DbSet<State> States { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Neighborhood> neighborhoods { get; set; }
+        public DbSet<Address> Address { get; set; }
         public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {

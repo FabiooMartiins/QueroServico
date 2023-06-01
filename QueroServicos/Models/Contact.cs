@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace QueroServico.Models
+namespace QueroServicos.Models
 {
     public class Contact
     {
