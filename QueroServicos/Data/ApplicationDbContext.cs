@@ -18,6 +18,8 @@ namespace QueroServicos.Data
         public DbSet<Address> Address { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
@@ -31,6 +33,11 @@ namespace QueroServicos.Data
             {
                 entity.HasKey(e => e.Key);
             });
+            modelBuilder.Entity<ApplicationUser>()
+        .HasOne(a => a.Address)
+        .WithMany()
+        .HasForeignKey(a => a.AddressId)
+        .OnDelete(DeleteBehavior.NoAction);
             modelBuilder.Entity<DeviceFlowCodes>(entity =>
             {
                 entity.HasKey(e => e.UserCode);
