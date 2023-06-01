@@ -1,4 +1,5 @@
-﻿using Duende.IdentityServer.EntityFramework.Options;
+﻿using Duende.IdentityServer.EntityFramework.Entities;
+using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -15,10 +16,30 @@ namespace QueroServicos.Data
         public DbSet<City> Cities { get; set; }
         public DbSet<Neighborhood> neighborhoods { get; set; }
         public DbSet<Address> Address { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
         public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
 
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<PersistedGrant>(entity =>
+            {
+                entity.HasKey(e => e.Key);
+            });
+            modelBuilder.Entity<DeviceFlowCodes>(entity =>
+            {
+                entity.HasKey(e => e.UserCode);
+            });
+            modelBuilder.Entity<Subcategory>()
+                .HasOne(c => c.Category)
+                .WithMany(c => c.Subcategories)
+                .HasForeignKey(c => c.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
